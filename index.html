@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Хороших Андрей — Резюме</title>
+
+  <!-- Шрифт + Иконки -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0e12;
+      --card:#11161c;
+      --muted:#9aa3ad;
+      --text:#e9eef3;
+      --accent:#6aa6ff;
+      --accent-2:#7de0c4;
+      --line:#1a212a;
+      --shadow:0 8px 24px rgba(0,0,0,.35);
+      --radius:14px;
+      --gap:22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+
+    .wrap{
+      max-width:1100px;
+      margin:40px auto 80px;
+      padding:0 18px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.00));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    /* Шапка */
+    .header{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:var(--gap);
+      padding:28px 28px 16px;
+      align-items:center;
+      border-bottom:1px solid var(--line);
+      background:
+        radial-gradient(600px 200px at 20% -10%, rgba(106,166,255,.14), transparent 60%),
+        radial-gradient(400px 160px at 90% 0%, rgba(125,224,196,.12), transparent 60%);
+    }
+    .who{
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .name{
+      font-weight:700;font-size:28px;letter-spacing:.2px;
+    }
+    .role{
+      color:var(--muted);font-weight:600;font-size:14px;
+    }
+    .contacts{
+      display:flex;flex-direction:column;gap:8px;justify-self:end;
+    }
+    .c-item{
+      display:flex;align-items:center;gap:10px;color:var(--text);
+      text-decoration:none;font-size:14px;
+    }
+    .c-item i{color:var(--accent)}
+    .c-item:hover{opacity:.9}
+
+    /* Контент */
+    .content{
+      display:grid;
+      grid-template-columns: 1fr 2fr;
+      gap:0;
+    }
+    .side, .main{padding:24px 28px}
+    .side{
+      border-right:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.015),transparent 60%);
+    }
+
+    /* Разделы */
+    .section{margin-bottom:26px}
+    .section:last-child{margin-bottom:0}
+    .h{
+      display:flex;align-items:center;gap:10px;
+      font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--muted);margin:0 0 14px;
+    }
+    .h i{color:var(--accent)}
+
+    .kv{
+      display:grid;grid-template-columns: 160px 1fr;gap:8px 14px;font-size:14px;
+    }
+    .kv .k{color:var(--muted)}
+    .kv .v{color:var(--text)}
+
+    .block{
+      display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.02);
+      border:1px solid var(--line);border-radius:12px;padding:14px;
+    }
+    .item{
+      display:flex;flex-direction:column;gap:4px;border-left:2px solid transparent;padding-left:12px;
+    }
+    .item:hover{border-left-color:var(--accent);background:linear-gradient(90deg,rgba(106,166,255,.06),transparent)}
+    .item .title{font-weight:600}
+    .item .meta{color:var(--muted);font-size:13px}
+    .list{margin:6px 0 0 0;padding-left:18px}
+    .list li{margin:4px 0}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+    .tag{
+      font-size:12px;color:#cfe3ff;background:rgba(106,166,255,.1);
+      border:1px solid rgba(106,166,255,.25);padding:6px 10px;border-radius:999px;
+    }
+    .tag.alt{
+      color:#d0f4ea;background:rgba(125,224,196,.1);border-color:rgba(125,224,196,.25);
+    }
+
+    /* Линии-разделители в правой колонке */
+    .main .section{padding:0 0 22px;margin-bottom:22px;border-bottom:1px dashed var(--line)}
+    .main .section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+
+    /* Анимации */
+    [data-reveal]{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    [data-reveal].show{opacity:1;transform:none}
+    .blink{
+      position:relative;display:inline-block;
+    }
+    .blink::after{
+      content:"";position:absolute;inset:0;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+      transform:translateX(-120%);animation:shine 2.8s ease-in-out infinite;
+    }
+    @keyframes shine{
+      0%{transform:translateX(-120%)}
+      30%{transform:translateX(120%)}
+      100%{transform:translateX(120%)}
+    }
+
+    /* Адаптив */
+    @media (max-width: 900px){
+      .header{grid-template-columns:1fr}
+      .contacts{justify-self:start}
+      .content{grid-template-columns:1fr}
+      .side{border-right:none;border-bottom:1px solid var(--line)}
+      .kv{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- Шапка -->
+      <header class="header">
+        <div class="who">
+          <div class="name blink">Хороших Андрей</div>
+          <div class="role">Программист / Тестировщик (Junior QA)</div>
+        </div>
+        <div class="contacts">
+          <a class="c-item" href="mailto:andreyhor02@gmail.com"><i class="ri-mail-line"></i> andreyhor02@gmail.com</a>
+          <a class="c-item" href="tel:+79648558642"><i class="ri-phone-line"></i> +7&nbsp;964&nbsp;855‑86‑42</a>
+          <a class="c-item" href="https://t.me/latipak1" target="_blank" rel="noopener"><i class="ri-telegram-line"></i> @latipak1</a>
+          <div class="c-item"><i class="ri-map-pin-line"></i> г. Москва</div>
+        </div>
+      </header>
+
+      <div class="content">
+
+        <!-- Левая колонка (личная информация, основное, языки, навыки) -->
+        <aside class="side">
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-user-line"></i> Личная информация</h3>
+            <div class="kv">
+              <div class="k">Гражданство</div><div class="v">Российская Федерация</div>
+              <div class="k">Город</div><div class="v">Москва</div>
+              <div class="k">Формат занятости</div><div class="v">Полная занятость</div>
+              <div class="k">Желаемая зарплата</div><div class="v">от 50&nbsp;000 рублей</div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-lightbulb-line"></i> Личные качества</h3>
+            <div class="block">
+              <div class="tags">
+                <span class="tag">Аналитическое мышление</span>
+                <span class="tag alt">Внимательность к деталям</span>
+                <span class="tag">Ответственность</span>
+                <span class="tag alt">Инициативность</span>
+                <span class="tag">Быстрая обучаемость</span>
+                <span class="tag alt">Стрессоустойчивость</span>
+                <span class="tag">Коммуникабельность</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-translate-2"></i> Знание языков</h3>
+            <div class="kv">
+              <div class="k">Английский</div><div class="v">A1 (начальный)</div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-computer-line"></i> Компьютерные навыки</h3>
+            <div class="block">
+              <div class="item">
+                <div class="title">Технологии и инструменты</div>
+                <ul class="list">
+                  <li>Python, Java, Selenium, DevTools (извлечение селекторов)</li>
+                  <li>API и антидетект‑браузеры (запуск Python‑скриптов)</li>
+                  <li>Postman, SQL, клиент‑сервер: HTTP(S), DNS, Host, WebSocket</li>
+                  <li>Kali Linux, GitHub‑скрипты</li>
+                  <li>Apache JMeter (нагрузочное тестирование)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+        </aside>
+
+        <!-- Правая колонка (опыт, образование, курсы) -->
+        <main class="main">
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-briefcase-line"></i> Опыт работы</h3>
+            <div class="block">
+              <div class="item">
+                <div class="title">Программист / Букмекер (спортивный аналитик) — БК «Зенит»</div>
+                <div class="meta">2 года • Аналитика, разработка, тестирование</div>
+                <ul class="list">
+                  <li>Анализ спортивных событий, формирование коэффициентов, управление рисками.</li>
+                  <li>Доработка и фиксы неработающих модулей в зоне ответственности.</li>
+                  <li>Подробные баг‑репорты по критическим дефектам → оперативные исправления; тестирование на Preprod и Prod.</li>
+                  <li>Разработал парсер для букмекерской конторы на Python и Selenium.</li>
+                  <li>Перешёл на Java (vibe coding), самостоятельные доработки программы.</li>
+                  <li>Практика с DevTools, извлечением селекторов, API антидетект‑браузеров.</li>
+                  <li>Kali Linux, запуск и адаптация скриптов; нагрузочное тестирование в Apache JMeter.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-graduation-cap-line"></i> Образование</h3>
+            <div class="block">
+              <div class="item">
+                <div class="title">Ульяновский институт гражданской авиации им. Б. П. Бугаева</div>
+                <div class="meta">Техносферная безопасность • Высшее образование • 2024 год</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-award-line"></i> Курсы и тренинги</h3>
+            <div class="block">
+              <div class="item">
+                <div class="title">Тестирование ПО с нуля</div>
+                <div class="meta">Ментор — QA Lead</div>
+                <ul class="list">
+                  <li>Виды тестирования; тестовое покрытие; 7 правил тестирования, принцип Парето.</li>
+                  <li>Техники тест‑дизайна: эквивалентное разделение, граничные значения, таблицы решений, попарное тестирование, предугадывание ошибок.</li>
+                  <li>API, клиент‑серверная архитектура (HTTP(S), DNS, Host, WebSocket).</li>
+                  <li>Практики: Postman, DevTools, SQL.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" data-reveal>
+            <h3 class="h"><i class="ri-information-line"></i> Основная информация</h3>
+            <div class="kv">
+              <div class="k">Желаемая зарплата</div><div class="v">от 50&nbsp;000 рублей</div>
+              <div class="k">Занятость</div><div class="v">Полная</div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Плавное проявление блоков при скролле
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('show'); }
+      })
+    },{threshold:0.12});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
